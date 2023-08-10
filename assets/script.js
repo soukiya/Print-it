@@ -2,6 +2,8 @@ const arrowRight =document.querySelector(".arrow_right")
 const arrowLeft =document.querySelector(".arrow_left")
 const bannerImage =document.querySelector(".banner-img")
 const dotsElement =document.querySelectorAll(".dot")
+const tagline= document.getElementById("tagline")
+
 
 
 
@@ -26,6 +28,8 @@ const slides = [
 
 let numSlide =0; 
 bannerImage.setAttribute("src","./assets/images/slideshow/"+slides[numSlide].image)
+tagline.innerHTML= slides[numSlide].tagLine
+dotsElement[numSlide].classList.add("dot_selected")
 console.log(slides.length)
 arrowRight.addEventListener("click",function(){
 	numSlide ++;
@@ -42,6 +46,7 @@ arrowRight.addEventListener("click",function(){
 	
 	
 	bannerImage.setAttribute("src","./assets/images/slideshow/"+slides[numSlide].image)
+	tagline.innerHTML= slides[numSlide].tagLine
 	
 })
 
@@ -50,9 +55,28 @@ arrowRight.addEventListener("click",function(){
 arrowLeft.addEventListener("click",function(){
 		numSlide --;
 	if(numSlide <0 ){
-		numSlide=4 ;
-	
+		numSlide=3 ;
+		dotsElement[numSlide].classList.add("dot_selected")
+		dotsElement[0].classList.remove("dot_selected")
+		
+	}else{
+		dotsElement[numSlide+1].classList.remove("dot_selected")
+		dotsElement [numSlide ].classList.add ("dot_selected");
 	}
+
 	bannerImage.setAttribute("src","./assets/images/slideshow/"+slides[numSlide].image)
+	tagline.innerHTML= slides[numSlide].tagLine
 	
 })
+let iprecedent=0;
+for (let i=0; i< slides.length; i++ ) {
+			dotsElement[i].addEventListener('click', function() {
+			bannerImage.setAttribute("src","./assets/images/slideshow/"+slides[i].image)
+			tagline.innerHTML= slides[i].tagLine
+			dotsElement[i].classList.add("dot_selected")
+			dotsElement[iprecedent].classList.remove("dot_selected")
+			iprecedent=i
+	
+	})
+	
+}
